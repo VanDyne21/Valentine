@@ -5,16 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You</title>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:wght@400;500&family=Homemade+Apple&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:wght@400;500&family=Courgette&display=swap" rel="stylesheet">
 
 <style>
-/* ---------- RESET ---------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   height: 100vh;
@@ -42,36 +36,148 @@ body {
 /* ---------- PAGE ONE ---------- */
 .page.one {
   background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
+  flex-direction: column;
 }
 
-.card {
+.page.one h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.2rem, 6vw, 3rem);
+}
+
+.tap-anywhere {
+  margin-top: 24px;
+  opacity: 0.7;
+}
+
+/* ---------- PAGE TWO ---------- */
+.page.two { overflow: hidden; }
+
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 420px;
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(16px);
-  border-radius: 26px;
-  padding: 40px 28px;
+  height: 560px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Envelope */
+.envelope {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(80vw, 260px);
+  height: 160px;
+  background: #c9182b;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.stage.open .envelope { opacity: 0; }
+
+.flap {
+  position: absolute;
+  inset: 0;
+  background: #b11526;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  transform-origin: top;
+  transition: transform 0.9s ease;
+}
+
+.stage.open .flap { transform: rotateX(180deg); }
+
+/* Letter */
+.letter {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleY(0.15);
+  transform-origin: top;
+  width: min(90vw, 360px);
+  background: #ffd6e0;
+  padding: 30px 28px;
+  border-radius: 14px;
+  font-family: "Courgette", cursive;
+  line-height: 1.9;
+  opacity: 0;
+  transition:
+    transform 1s cubic-bezier(.25,.8,.25,1),
+    opacity 0.8s ease;
+}
+
+.stage.open .letter {
+  transform: translate(-50%, -50%) scaleY(1);
+  opacity: 1;
+}
+
+.tap {
+  position: absolute;
+  bottom: 30px;
+  color: #fff;
+  opacity: 0.85;
+}
+
+/* ---------- PAGE THREE ---------- */
+.page.three {
+  background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
+  flex-direction: column;
   text-align: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
 }
 
-h1 {
+.intro-text {
   font-family: "Playfair Display", serif;
-  font-size: clamp(1.9rem, 4vw, 2.2rem);
-  margin-bottom: 16px;
+  font-size: 1.6rem;
+  opacity: 1;
+  transition: opacity 0.8s ease;
 }
 
-p {
-  font-size: clamp(1.05rem, 2.8vw, 1.15rem);
-  line-height: 1.7;
-  margin-bottom: 18px;
+.question-box {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.page.three.show-question .intro-text {
+  opacity: 0;
+}
+
+.page.three.show-question .question-box {
+  opacity: 1;
+}
+
+.question-box h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  margin-bottom: 24px;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  margin-top: 28px;
+  width: 220px;
+  margin: 0 auto;
 }
 
 button {
@@ -85,148 +191,56 @@ button {
   cursor: pointer;
 }
 
-/* ---------- PAGE TWO BACKGROUND ---------- */
-.page.two {
-  background: #ff8fa3;
+/* ---------- PAGE FOUR ---------- */
+.page.four /* ---------- PAGE FOUR VIDEO ---------- */
+.page.four {
   overflow: hidden;
 }
 
-.page.two::before {
-  content: "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤";
+.page.four .bg-video {
   position: absolute;
   inset: 0;
-  font-size: 22px;
-  opacity: 0.12;
-  line-height: 90px;
-  animation: hearts 35s linear infinite;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
-@keyframes hearts {
-  from { transform: translateY(0); }
-  to { transform: translateY(-260px); }
+.final-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 1;
 }
 
-/* ---------- STAGE ---------- */
-.stage {
+.final-content {
   position: relative;
-  width: min(90vw, 300px);
-  height: 420px;
+  z-index: 2;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
+  height: 100%;
 }
 
-/* ---------- ENVELOPE ---------- */
-.envelope {
-  position: relative;
-  width: min(80vw, 260px);
-  height: 160px;
-  background: linear-gradient(145deg, #d61f36, #a91527);
+.final-content img {
+  max-width: 90%;
+  max-height: 90%;
   border-radius: 12px;
-  box-shadow:
-    0 20px 40px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.25);
-  cursor: pointer;
-  z-index: 2;
+}
+{
+  background: #000;
 }
 
-.envelope::after {
-  content: "";
-  position: absolute;
-  inset: 0;
+.page.four img {
+  max-width: 90%;
+  max-height: 90%;
   border-radius: 12px;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
-}
-
-/* Flap */
-.flap {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(145deg, #c3172f, #8f1020);
-  clip-path: polygon(0 0, 100% 0, 50% 60%);
-  transform-origin: top;
-  transition: transform 1s cubic-bezier(.4,0,.2,1);
-  z-index: 4;
-}
-
-/* Wax Seal */
-.seal {
-  width: 38px;
-  height: 38px;
-  background: radial-gradient(circle at top left, #a00000, #5f0000);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 26px;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.15);
-  transition: transform 0.4s ease, opacity 0.4s ease;
-  z-index: 5;
-}
-
-/* ---------- LETTER ---------- */
-.letter {
-  position: absolute;
-  bottom: 150px;
-  left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  width: min(90vw, 360px);
-  background: #ffd6e0;
-  padding: 30px 28px;
-  border-radius: 14px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  font-family: "Homemade Apple", cursive;
-  line-height: 1.9;
-  opacity: 0;
-  transition:
-    transform 1.6s cubic-bezier(.22,1,.36,1),
-    opacity 0.6s ease;
-  z-index: 6;
-}
-
-/* ---------- OPEN STATES ---------- */
-.stage.open .flap {
-  transform: rotateX(180deg);
-}
-
-.stage.open .seal {
-  transform: translateX(-50%) scale(0);
-  opacity: 0;
-}
-
-.stage.open .letter {
-  transform: translateX(-50%) translateY(-160px);
-  opacity: 1;
-}
-
-/* ---------- TEXT ---------- */
-.tap {
-  margin-top: 16px;
-  font-size: 1rem;
-  opacity: 0.8;
-}
-
-.signature {
-  margin-top: 26px;
-  text-align: right;
-}
-
-/* ---------- DESKTOP ENHANCEMENTS ---------- */
-@media (min-width: 768px) {
-  .stage {
-    height: 460px;
-  }
-
-  .letter {
-    padding: 36px 34px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
 <audio id="bgMusic" loop>
   <source src="heartbeat.mp3" type="audio/mpeg">
 </audio>
@@ -236,28 +250,23 @@ button {
 </audio>
 
 <!-- PAGE ONE -->
-<div class="page one" id="pageOne">
-  <div class="card">
-    <h1>Hey ❤️</h1>
-    <p>I didn’t want this to be rushed.</p>
-    <p>Choosing you is intentional.</p>
-    <p><strong>Will you be my Valentine?</strong></p>
-
-    <div class="buttons">
-      <button onclick="goNext()">Yes</button>
-      <button onclick="goNext()">Yes</button>
-    </div>
-  </div>
+<div class="page one" id="pageOne" onclick="goNext()">
+  <h1>Hey Gayakutty❤️</h1>
+  <div class="tap-anywhere">Tap anywhere</div>
 </div>
 
 <!-- PAGE TWO -->
 <div class="page two hidden" id="pageTwo">
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="lovebackgroundvideo.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
   <div class="stage" onclick="openLetter()">
     <div class="letter">
-      My love,
-      <br><br>
-      I don’t always say things perfectly,
-      but I hope you feel them —
+      My love,<br><br>
+       I don’t always say or do things perfectly,
+      but I hope you feel them...
       in the way I choose you,
       in the way I think of you,
       and in the quiet moments
@@ -265,29 +274,53 @@ button {
       <br><br>
       This isn’t just about today.
       It’s about choosing you,
-      again and again.
-      <br><br>
-      Happy Valentine’s Day ❤️
-      <div class="signature">— always yours</div>
+      again and again, every day for hopefully the rest of my life.
+<br><br>
+      Happy Valentine’s Day Love❤️
     </div>
 
     <div class="envelope">
       <div class="flap"></div>
-      <div class="seal"></div>
+    </div>
+
+    <div class="tap">Tap the envelope</div>
+  </div>
+</div>
+
+<!-- PAGE THREE -->
+<div class="page three hidden" id="pageThree">
+  <div class="intro-text">And Now For The Million Dollar Question…</div>
+
+  <div class="question-box">
+    <h2>Will you be my Valentine?</h2>
+    <div class="buttons">
+      <button onclick="goFinal()">Yes</button>
+      <button onclick="goFinal()">Yes</button>
     </div>
   </div>
+</div>
 
-  <div class="tap">Tap the envelope</div>
+<!-- PAGE FOUR -->
+<div class="page four hidden" id="pageFour">
+
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="finaldance.mp4" type="video/mp4">
+  </video>
+
+  <div class="final-overlay"></div>
+
+  <div class="final-content">
+    <img src="final.gif" alt="Celebration">
+  </div>
+
 </div>
 
 <script>
 function goNext() {
-  document.getElementById("pageOne").classList.add("hidden");
-  document.getElementById("pageTwo").classList.remove("hidden");
-
-  const music = document.getElementById("bgMusic");
-  music.volume = 0.18;
-  music.play();
+  pageOne.classList.add("hidden");
+  pageTwo.classList.remove("hidden");
+  bgMusic.volume = 0.18;
+  bgMusic.play();
 }
 
 function openLetter() {
@@ -295,16 +328,31 @@ function openLetter() {
   if (stage.classList.contains("open")) return;
 
   stage.classList.add("open");
+  paperSound.volume = 0.3;
+  paperSound.play();
 
-  const paper = document.getElementById("paperSound");
-  paper.volume = 0.3;
-  paper.play();
+  document.querySelector(".tap").textContent = "Tap anywhere";
+  stage.onclick = goQuestion;
+}
 
-  document.querySelector(".tap").style.display = "none";
+function goQuestion() {
+  pageTwo.classList.add("hidden");
+  pageThree.classList.remove("hidden");
+
+  setTimeout(() => {
+    pageThree.classList.add("show-question");
+  }, 1200);
+}
+
+function goFinal() {
+  pageThree.classList.add("hidden");
+  pageFour.classList.remove("hidden");
 }
 </script>
 
 </body>
 </html>
+
+
 
 
