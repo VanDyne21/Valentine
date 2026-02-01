@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You</title>
+
+  <!-- Romantic Serif Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      font-family: "Cormorant Garamond", serif;
+      background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.18);
+      z-index: 1;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 2;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.96);
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(16px);
+      border-radius: 26px;
+      padding: 40px 28px;
+      text-align: center;
+      box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.1rem;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .question {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    button {
+      padding: 14px 0;
+      border-radius: 40px;
+      border: none;
+      font-family: "Playfair Display", serif;
+      font-size: 1rem;
+      background: #ffffff;
+      color: #ff4d6d;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    /* SECOND PAGE MESSAGE */
+    .message {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      opacity: 0;
+      animation: reveal 2s forwards;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* DESKTOP TWEAK */
+    @media (min-width: 768px) {
+      .card {
+        padding: 55px 60px;
+      }
+
+      h1 {
+        font-size: 2.4rem;
+      }
+
+      p {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+
+  <!-- AUDIO (plays on page two) -->
+  <audio id="bgMusic" loop>
+    <source src="heartbeat.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- PAGE ONE -->
+  <div class="page" id="pageOne">
+    <div class="card">
+      <h1>Hey Gayakutti❤️</h1>
+
+      <p>
+        I didn’t want this to be rushed.  
+        Or casual.
+      </p>
+
+      <p>
+        I wanted you to know  
+        that choosing you is intentional.
+      </p>
+
+      <div class="question">
+        Will you be my Valentine?
+      </div>
+
+      <div class="buttons">
+        <button onclick="goNext()">Yes</button>
+        <button onclick="goNext()">Yes</button>
+      </div>
+
+      <div class="footer">
+        14th February
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE TWO -->
+  <div class="page hidden" id="pageTwo">
+    <div class="card">
+      <h1>For You</h1>
+
+      <p class="message">
+        This was the part I kept for later.
+        <br /><br />
+        I choose you —  
+        in the small moments,
+        the quiet ones,
+        and the ones that matter.
+        <br /><br />
+        Happy Valentine’s Day Kunjuuu ❤️
+      </p>
+
+      <div class="footer">
+        — always yours, Vavu
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goNext() {
+      document.getElementById("pageOne").classList.add("hidden");
+      document.getElementById("pageTwo").classList.remove("hidden");
+
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.25;
+      music.play();
+    }
+  </script>
+</body>
+</html>
