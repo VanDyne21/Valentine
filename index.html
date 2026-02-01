@@ -1,260 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For You</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:wght@400;500&family=Homemade+Apple&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:wght@400;500&family=Homemade+Apple&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      height: 100vh;
-      font-family: "Cormorant Garamond", serif;
-      overflow: hidden;
-    }
+body {
+  height: 100vh;
+  font-family: "Cormorant Garamond", serif;
+  overflow: hidden;
+  background: #000;
+}
 
-    /* ---------- PAGE ONE ---------- */
-    .page {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      transition: opacity 1s ease, transform 1s ease;
-    }
+/* ---------- PAGE SYSTEM ---------- */
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  transition: opacity 0.8s ease;
+}
 
-    .hidden {
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(0.96);
-    }
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 
-    .page.one {
-      background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
-    }
+/* ---------- PAGE ONE ---------- */
+.page.one {
+  background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
+}
 
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.18);
-    }
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(16px);
+  border-radius: 26px;
+  padding: 40px 28px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+}
 
-    .card {
-      position: relative;
-      max-width: 420px;
-      width: 100%;
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(16px);
-      border-radius: 26px;
-      padding: 40px 28px;
-      text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-      z-index: 2;
-    }
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.9rem, 4vw, 2.2rem);
+  margin-bottom: 16px;
+}
 
-    h1 {
-      font-family: "Playfair Display", serif;
-      font-size: 2.1rem;
-      margin-bottom: 16px;
-    }
+p {
+  font-size: clamp(1.05rem, 2.8vw, 1.15rem);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
 
-    p {
-      font-size: 1.15rem;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 28px;
+}
 
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 28px;
-    }
+button {
+  padding: 14px 0;
+  border-radius: 40px;
+  border: none;
+  font-family: "Playfair Display", serif;
+  background: #fff;
+  color: #ff4d6d;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
-    button {
-      padding: 14px 0;
-      border-radius: 40px;
-      border: none;
-      font-family: "Playfair Display", serif;
-      font-size: 1rem;
-      background: #ffffff;
-      color: #ff4d6d;
-      cursor: pointer;
-    }
+/* ---------- PAGE TWO BACKGROUND ---------- */
+.page.two {
+  background: #ff8fa3;
+  overflow: hidden;
+}
 
-    /* ---------- PAGE TWO ---------- */
-    .page.two {
-      background: linear-gradient(#f7efe5, #f1e7db);
-    }
+.page.two::before {
+  content: "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤";
+  position: absolute;
+  inset: 0;
+  font-size: 22px;
+  opacity: 0.12;
+  line-height: 90px;
+  animation: hearts 35s linear infinite;
+}
 
-    .letter-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          rgba(0,0,0,0.03) 0px,
-          rgba(0,0,0,0.03) 1px,
-          transparent 28px
-        );
-    }
+@keyframes hearts {
+  from { transform: translateY(0); }
+  to { transform: translateY(-260px); }
+}
 
-    /* Envelope */
-    .envelope {
-      width: 220px;
-      height: 140px;
-      background: #e6d5c3;
-      position: relative;
-      border-radius: 6px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-      cursor: pointer;
-      animation: float 3s ease-in-out infinite;
-    }
+/* ---------- STAGE ---------- */
+.stage {
+  position: relative;
+  width: min(90vw, 300px);
+  height: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
 
-    .envelope::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border: 2px solid rgba(0,0,0,0.08);
-      border-radius: 6px;
-    }
+/* ---------- ENVELOPE ---------- */
+.envelope {
+  position: relative;
+  width: min(80vw, 260px);
+  height: 160px;
+  background: linear-gradient(145deg, #d61f36, #a91527);
+  border-radius: 12px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.25);
+  cursor: pointer;
+  z-index: 2;
+}
 
-    .flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #e0c9b1;
-      clip-path: polygon(0 0, 100% 0, 50% 55%);
-      transform-origin: top;
-      transition: transform 1s ease;
-    }
+.envelope::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
+}
 
-    .envelope.open .flap {
-      transform: rotateX(180deg);
-    }
+/* Flap */
+.flap {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #c3172f, #8f1020);
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  transform-origin: top;
+  transition: transform 1s cubic-bezier(.4,0,.2,1);
+  z-index: 4;
+}
 
-    .tap {
-      margin-top: 20px;
-      font-size: 1rem;
-      opacity: 0.7;
-      text-align: center;
-    }
+/* Wax Seal */
+.seal {
+  width: 38px;
+  height: 38px;
+  background: radial-gradient(circle at top left, #a00000, #5f0000);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.15);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: 5;
+}
 
-    /* Letter */
-    .letter {
-      position: absolute;
-      max-width: 340px;
-      width: 90%;
-      background: #fffaf3;
-      padding: 30px 26px;
-      border-radius: 10px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 1.2s ease;
-      font-family: "Homemade Apple", cursive;
-      line-height: 1.8;
-    }
+/* ---------- LETTER ---------- */
+.letter {
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  width: min(90vw, 360px);
+  background: #ffd6e0;
+  padding: 30px 28px;
+  border-radius: 14px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  font-family: "Homemade Apple", cursive;
+  line-height: 1.9;
+  opacity: 0;
+  transition:
+    transform 1.6s cubic-bezier(.22,1,.36,1),
+    opacity 0.6s ease;
+  z-index: 6;
+}
 
-    .letter.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+/* ---------- OPEN STATES ---------- */
+.stage.open .flap {
+  transform: rotateX(180deg);
+}
 
-    .signature {
-      margin-top: 30px;
-      text-align: right;
-    }
+.stage.open .seal {
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+}
 
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-  </style>
+.stage.open .letter {
+  transform: translateX(-50%) translateY(-160px);
+  opacity: 1;
+}
+
+/* ---------- TEXT ---------- */
+.tap {
+  margin-top: 16px;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.signature {
+  margin-top: 26px;
+  text-align: right;
+}
+
+/* ---------- DESKTOP ENHANCEMENTS ---------- */
+@media (min-width: 768px) {
+  .stage {
+    height: 460px;
+  }
+
+  .letter {
+    padding: 36px 34px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- AUDIO -->
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="heartbeat.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- PAGE ONE -->
-  <div class="page one" id="pageOne">
-    <div class="overlay"></div>
-    <div class="card">
-      <h1>Hey ❤️</h1>
-      <p>I didn’t want this to be rushed.</p>
-      <p>Choosing you is intentional.</p>
+<audio id="paperSound">
+  <source src="paper.mp3" type="audio/mpeg">
+</audio>
 
-      <p><strong>Will you be my Valentine?</strong></p>
+<!-- PAGE ONE -->
+<div class="page one" id="pageOne">
+  <div class="card">
+    <h1>Hey ❤️</h1>
+    <p>I didn’t want this to be rushed.</p>
+    <p>Choosing you is intentional.</p>
+    <p><strong>Will you be my Valentine?</strong></p>
 
-      <div class="buttons">
-        <button onclick="goNext()">Yes</button>
-        <button onclick="goNext()">Yes</button>
-      </div>
+    <div class="buttons">
+      <button onclick="goNext()">Yes</button>
+      <button onclick="goNext()">Yes</button>
     </div>
   </div>
+</div>
 
-  <!-- PAGE TWO -->
-  <div class="page two hidden" id="pageTwo">
-    <div class="letter-bg"></div>
-
-    <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
-      <div class="envelope" onclick="openLetter()">
-        <div class="flap"></div>
-      </div>
-      <div class="tap">Tap to open</div>
-    </div>
-
-    <div class="letter" id="letter">
+<!-- PAGE TWO -->
+<div class="page two hidden" id="pageTwo">
+  <div class="stage" onclick="openLetter()">
+    <div class="letter">
       My love,
-      <br /><br />
+      <br><br>
       I don’t always say things perfectly,
-      but I hope you feel them.
-      <br /><br />
-      In the way I choose you,
+      but I hope you feel them —
+      in the way I choose you,
       in the way I think of you,
       and in the quiet moments
       where nothing else matters.
-      <br /><br />
+      <br><br>
       This isn’t just about today.
-      It’s about choosing you —
+      It’s about choosing you,
       again and again.
-      <br /><br />
+      <br><br>
       Happy Valentine’s Day ❤️
       <div class="signature">— always yours</div>
     </div>
+
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="seal"></div>
+    </div>
   </div>
 
-  <script>
-    function goNext() {
-      document.getElementById("pageOne").classList.add("hidden");
-      document.getElementById("pageTwo").classList.remove("hidden");
+  <div class="tap">Tap the envelope</div>
+</div>
 
-      const music = document.getElementById("bgMusic");
-      music.volume = 0.2;
-      music.play();
-    }
+<script>
+function goNext() {
+  document.getElementById("pageOne").classList.add("hidden");
+  document.getElementById("pageTwo").classList.remove("hidden");
 
-    function openLetter() {
-      document.querySelector(".envelope").classList.add("open");
-      document.getElementById("letter").classList.add("show");
-      document.querySelector(".tap").style.display = "none";
-    }
-  </script>
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.18;
+  music.play();
+}
+
+function openLetter() {
+  const stage = document.querySelector(".stage");
+  if (stage.classList.contains("open")) return;
+
+  stage.classList.add("open");
+
+  const paper = document.getElementById("paperSound");
+  paper.volume = 0.3;
+  paper.play();
+
+  document.querySelector(".tap").style.display = "none";
+}
+</script>
 
 </body>
 </html>
