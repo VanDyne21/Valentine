@@ -25,6 +25,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 16px;
+  text-align: center;
   transition: opacity 0.8s ease;
 }
 
@@ -33,24 +34,105 @@ body {
   pointer-events: none;
 }
 
-/* ---------- PAGE ONE ---------- */
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.2rem, 6vw, 3rem);
+  margin-bottom: 14px;
+}
+
+h2 {
+  font-size: clamp(2.6rem, 7vw, 3.2rem);
+  margin-bottom: 12px;
+}
+
+p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.tap-anywhere {
+  margin-top: 26px;
+  opacity: 0.7;
+}
+
+/* ---------- PAGE 1 ---------- */
+/* ---------- PAGE ONE VIDEO ---------- */
+.page.one {
+  overflow: hidden;
+}
+
+.page.one .bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.page.one .video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+.page-one-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .page.one {
   background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
   flex-direction: column;
 }
 
-.page.one h1 {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(2.2rem, 6vw, 3rem);
+.intro-gif {
+  width: min(220px, 70vw);
+  margin-bottom: 20px;
+  border-radius: 12px;
 }
 
-.tap-anywhere {
-  margin-top: 24px;
-  opacity: 0.7;
+/* ---------- PAGES 2 ---------- */
+.page.two {
+  background: radial-gradient(circle at top, #ffd1dc, #ff9a9e);
+  flex-direction: column;
 }
 
-/* ---------- PAGE TWO ---------- */
-.page.two { overflow: hidden; }
+.funfact-gif {
+  width: min(240px, 75vw);
+  margin-bottom: 18px;
+  border-radius: 12px;
+}
+
+/* ---------- PAGES 3 ---------- */
+.page.three {
+  background: radial-gradient(circle at top, #ffb3c6, #ff6f91);
+  flex-direction: column;
+}
+.funfact1-gif {
+  width: min(240px, 75vw);
+  margin-bottom: 18px;
+  border-radius: 12px;
+}
+
+/* ---------- PAGES 4 ---------- */
+.page.four {
+  background: radial-gradient(circle at top, #fbc2eb, #a18cd1);
+  flex-direction: column;
+}
+
+.funfact2-gif {
+  width: min(240px, 75vw);
+  margin-bottom: 18px;
+  border-radius: 12px;
+}
+
+/* ---------- PAGE 5 (ENVELOPE) ---------- */
+.page.five { overflow: hidden; }
 
 .bg-video {
   position: absolute;
@@ -86,10 +168,9 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: min(80vw, 260px);
-  height: 160px;
-  background: #c9182b;
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  height: auto;
+  aspect-ratio: 4 / 3;   /* adjust if needed */
+  background: url("love-letter.gif") center / contain no-repeat;
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.8s ease;
@@ -97,18 +178,8 @@ body {
 
 .stage.open .envelope { opacity: 0; }
 
-.flap {
-  position: absolute;
-  inset: 0;
-  background: #b11526;
-  clip-path: polygon(0 0, 100% 0, 50% 60%);
-  transform-origin: top;
-  transition: transform 0.9s ease;
-}
 
-.stage.open .flap { transform: rotateX(180deg); }
-
-/* Letter */
+/* ---------- LETTER ---------- */
 .letter {
   position: absolute;
   top: 55%;
@@ -132,24 +203,29 @@ body {
   opacity: 1;
 }
 
-.tap {
-  position: absolute;
-  bottom: 30px;
-  color: #fff;
-  opacity: 0.85;
+.letter-page {
+  transition: opacity 0.6s ease;
 }
 
-/* ---------- PAGE THREE ---------- */
-.page.three {
+.letter-page.hidden {
+  display: none;
+}
+
+.letter-hint {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+/* ---------- PAGE 6 (QUESTION) ---------- */
+.page.six {
   background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
   flex-direction: column;
-  text-align: center;
 }
 
 .intro-text {
   font-family: "Playfair Display", serif;
   font-size: 1.6rem;
-  opacity: 1;
   transition: opacity 0.8s ease;
 }
 
@@ -158,26 +234,15 @@ body {
   transition: opacity 0.8s ease;
 }
 
-.page.three.show-question .intro-text {
-  opacity: 0;
-}
-
-.page.three.show-question .question-box {
-  opacity: 1;
-}
-
-.question-box h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 1.8rem;
-  margin-bottom: 24px;
-}
+.page.six.show-question .intro-text { opacity: 0; }
+.page.six.show-question .question-box { opacity: 1; }
 
 .buttons {
   display: flex;
   flex-direction: column;
   gap: 14px;
   width: 220px;
-  margin: 0 auto;
+  margin: 20px auto 0;
 }
 
 button {
@@ -191,50 +256,22 @@ button {
   cursor: pointer;
 }
 
-/* ---------- PAGE FOUR ---------- */
-.page.four /* ---------- PAGE FOUR VIDEO ---------- */
-.page.four {
-  overflow: hidden;
-}
-
-.page.four .bg-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.final-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-  z-index: 1;
-}
+/* ---------- PAGE 7 ---------- */
+.page.seven { overflow: hidden; }
 
 .final-content {
   position: relative;
   z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }
 
 .final-content img {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 90vw;
+  max-height: 90vh;
   border-radius: 12px;
-}
-{
-  background: #000;
 }
 
-.page.four img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 12px;
+.page.seven .big-emoji {
+  font-size: 4rem;   /* adjust size here */
 }
 </style>
 </head>
@@ -249,23 +286,64 @@ button {
   <source src="paper.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PAGE ONE -->
-<div class="page one" id="pageOne" onclick="goNext()">
-  <h1>Hey Gayakutty❤️</h1>
-  <div class="tap-anywhere">Tap anywhere</div>
+<!-- PAGE 1 -->
+<div class="page one" id="page1" onclick="goToPage(2)">
+
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="introvideo.mp4" type="video/mp4">
+  </video>
+
+  <div class="video-overlay"></div>
+
+  <div class="page-one-content">
+    <img src="hello.gif" alt="Hi" class="intro-gif">
+    <h1><p style="color: pink; font-size:40px;">Hey Gayakutty ❤️</p></h1>
+    <div class="tap-anywhere"><p style="color: pink;">Evdellum njekkuu</p></div>
+  </div>
+
 </div>
 
-<!-- PAGE TWO -->
-<div class="page two hidden" id="pageTwo">
+<!-- PAGE 2 -->
+<div class="page two hidden" id="page2" onclick="goToPage(3)">
+  <img src="kiss.gif" alt="Kiss" class="funfact-gif"> 
+  <h1>Nink ariyoo it’s been</h1>
+  <h2 id="daysKiss">— days</h2>
+  <p>since our first kiss 💋</p>
+  <div class="tap-anywhere">Ivdee click</div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page three hidden" id="page3" onclick="goToPage(4)">
+  <img src="hugs.gif" alt="Hugs" class="funfact1-gif">
+  <h1>And it’s been</h1>
+  <h2 id="daysYes">— days</h2>
+  <p>since you said YES ❤️</p>
+  <div class="tap-anywhere">Onnude clickuu</div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page four hidden" id="page4" onclick="goToPage(5)">
+<img src="shy.gif" alt="Hugs" class="funfact2-gif">
+  <h1>And somewhere between then…</h1>
+  <p>I knew.</p>
+  <div class="tap-anywhere">Tap Tap</div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page five hidden" id="page5">
   <video class="bg-video" autoplay muted loop playsinline>
     <source src="lovebackgroundvideo.mp4" type="video/mp4">
   </video>
   <div class="video-overlay"></div>
 
   <div class="stage" onclick="openLetter()">
-    <div class="letter">
-      My love,<br><br>
-       Words will never fully capture what you mean to me, but I want you to know this... 
+
+    <div class="letter" onclick="nextLetterPage(event)">
+      <div class="letter-page page-1">
+        <p style="text-align: left;">
+        My dear Gayakutty,<br><br>
+        <!-- YOUR LETTER – PAGE 1 -->
+        Words will never fully capture what you mean to me, but I want you to know this... 
        you've become my safe place, my comfort, and my favourite part of every day. 
        Loving you feels natural, like something my heart always knew how to do.
       <br><br>
@@ -273,61 +351,76 @@ button {
       even if distance keeps us apart. 
       Being far from you only reminds me how strong what we share is. 
       I feel close to you in every thought, every message, every quiet moment.
-      <br><br>
-      Thank you for choosing me and loving me the way you do. 
+      </div>
+      <div class="letter-page page-2 hidden">
+        <!-- YOUR LETTER – PAGE 2 -->
+<p style="text-align: left;">
+         Thank you for choosing me and loving me the way you do. 
       No matter the distance...
       My heart is yours... always.
-
+<br><br>
 I love you, today and always.
-<br><br>
+<br>
 Yours, V.
-<br><br>
-      Happy Valentine’s Day Love❤️
+</p>
+      </div>
+
+      <div class="letter-hint">Next Page</div>
     </div>
 
-    <div class="envelope">
-      <div class="flap"></div>
+    <div class="envelope">     
     </div>
 
     <div class="tap">Tap the envelope</div>
   </div>
 </div>
 
-<!-- PAGE THREE -->
-<div class="page three hidden" id="pageThree">
-  <div class="intro-text">And Now For The Million Dollar Question…</div>
+<!-- PAGE 6 -->
+<div class="page six hidden" id="page6">
+  <div class="intro-text">Now for the million dollar question…</div>
 
   <div class="question-box">
-    <h2>Will you be my Valentine?</h2>
+    <h1>Will you be my Valentine?</h1>
     <div class="buttons">
-      <button onclick="goFinal()">Yes</button>
-      <button onclick="goFinal()">Yes</button>
+      <button onclick="goToPage(7)">Yes</button>
+      <button onclick="goToPage(7)">Yes</button>
     </div>
   </div>
 </div>
 
-<!-- PAGE FOUR -->
-<div class="page four hidden" id="pageFour">
-
+<!-- PAGE 7 -->
+<div class="page seven hidden" id="page7">
   <video class="bg-video" autoplay muted loop playsinline>
     <source src="finaldance.mp4" type="video/mp4">
   </video>
-
-  <div class="final-overlay"></div>
-
   <div class="final-content">
     <img src="final.gif" alt="Celebration">
+<h1><p style="color:pink; font-size:40px;">
+I Love Youuu Ponne</p></h1>
+<h2><p style="color:pink; font-size:40px;">And Happy Valentine's Day</p></h2>
+<br>
+<div class="big-emoji">💗💗💗💗💗💗
   </div>
-
 </div>
 
 <script>
-function goNext() {
-  pageOne.classList.add("hidden");
-  pageTwo.classList.remove("hidden");
-  bgMusic.volume = 0.18;
-  bgMusic.play();
+function goToPage(n) {
+  document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+  document.getElementById(`page${n}`).classList.remove("hidden");
+
+  if (n === 5) {
+    bgMusic.volume = 0.18;
+    bgMusic.play();
+  }
+
+  if (n === 6) {
+    setTimeout(() => {
+      document.getElementById("page6").classList.add("show-question");
+    }, 1200);
+  }
 }
+
+let letterPage = 1;
 
 function openLetter() {
   const stage = document.querySelector(".stage");
@@ -338,22 +431,34 @@ function openLetter() {
   paperSound.play();
 
   document.querySelector(".tap").textContent = "Tap anywhere";
-  stage.onclick = goQuestion;
+  stage.onclick = () => {
+    if (letterPage === 2) goToPage(6);
+  };
 }
 
-function goQuestion() {
-  pageTwo.classList.add("hidden");
-  pageThree.classList.remove("hidden");
+function nextLetterPage(e) {
+  e.stopPropagation();
 
-  setTimeout(() => {
-    pageThree.classList.add("show-question");
-  }, 1200);
+  if (letterPage === 1) {
+    document.querySelector(".letter .page-1").classList.add("hidden");
+    document.querySelector(".letter .page-2").classList.remove("hidden");
+    document.querySelector(".letter-hint").textContent = "Tap Tap";
+    letterPage = 2;
+  }
 }
 
-function goFinal() {
-  pageThree.classList.add("hidden");
-  pageFour.classList.remove("hidden");
-}
+/* DATE CALCULATIONS */
+const firstKissDate = new Date("2025-08-09");
+const yesDate = new Date("2025-08-26");
+
+const today = new Date();
+const oneDay = 1000 * 60 * 60 * 24;
+
+document.getElementById("daysKiss").textContent =
+  Math.floor((today - firstKissDate) / oneDay) + " days";
+
+document.getElementById("daysYes").textContent =
+  Math.floor((today - yesDate) / oneDay) + " days";
 </script>
 
 </body>
