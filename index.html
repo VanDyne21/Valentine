@@ -256,8 +256,30 @@ button {
   cursor: pointer;
 }
 
-/* ---------- PAGE 7 ---------- */
+/* ---------- PAGE 7 (EMOTIONAL YES) ---------- */
 .page.seven { overflow: hidden; }
+
+.emotional-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emotional-gif {
+  width: min(260px, 75vw);
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+
+.page.seven h1 {
+  color: white;
+}
+
+
+/* ---------- PAGE 8 ---------- */
+.page.eight { overflow: hidden; }
 
 .final-content {
   position: relative;
@@ -270,7 +292,7 @@ button {
   border-radius: 12px;
 }
 
-.page.seven .big-emoji {
+.page.eight .big-emoji {
   font-size: 4rem;   /* adjust size here */
 }
 </style>
@@ -388,8 +410,26 @@ Yours, V.
   </div>
 </div>
 
-<!-- PAGE 7 -->
+<!-- PAGE 7 (EMOTIONAL YES PAGE) -->
 <div class="page seven hidden" id="page7">
+
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="finaldance.mp4" type="video/mp4">
+  </video>
+
+  <div class="video-overlay"></div>
+
+  <div class="emotional-content" onclick="goToPage(8)">
+    <img src="emotional.gif" alt="Emotional" class="emotional-gif">
+    <h1>YAY! You said YESSSSSS!!!!</h1>
+    <div class="tap-anywhere">Tap anywhere</div>
+  </div>
+
+</div>
+
+
+<!-- PAGE 8 -->
+<div class="page eight hidden" id="page8">
   <video class="bg-video" autoplay muted loop playsinline>
     <source src="finaldance.mp4" type="video/mp4">
   </video>
