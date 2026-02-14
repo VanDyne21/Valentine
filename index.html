@@ -448,7 +448,7 @@ function goToPage(n) {
   document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
   document.getElementById(`page${n}`).classList.remove("hidden");
 
-  if (n === 5) {
+  if (n === 2) {
     bgMusic.volume = 0.18;
     bgMusic.play();
   }
@@ -503,3 +503,4 @@ document.getElementById("daysYes").textContent =
 
 </body>
 </html>
+
